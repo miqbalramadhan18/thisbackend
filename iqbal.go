@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -49,4 +50,14 @@ func InsertBiaya(db string, biaya Biaya) (insertedID interface{}) {
 		fmt.Printf("InsertBiaya: %v\n", err)
 	}
 	return insertResult.InsertedID
+}
+
+func GetBiaya(Biayasemester string, db *mongo.Database, col string) (data Biaya ) {
+	user := db.Collection(col)
+	filter := bson.M{"biayasemester": Biayasemester}
+	err := user.FindOne(context.TODO(), filter).Decode(&data)
+	if err != nil {
+	fmt.Printf(err.Error())
+	}
+	return data
 }
