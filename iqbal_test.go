@@ -3,16 +3,14 @@ package iqbal
 import (
 	"fmt"
 	"testing"
-
-	"github.com/aiteung/atdb"
 )
 
-var MongoInfo = atdb.DBInfo{
-	DBString: MongoString,
-	DBName:   "qobel",
-}
+// var MongoInfo = atdb.DBInfo{
+// 	DBString: MongoString,
+// 	DBName:   "qobel",
+// }
 
-var MongoConn = atdb.MongoConnect(MongoInfo)
+// var MongoConn = atdb.MongoConnect(MongoInfo)
 
 // func TestInsertJalurPenerimaan(t *testing.T) {
 // 	dbname := "qobel"
@@ -42,7 +40,6 @@ var MongoConn = atdb.MongoConnect(MongoInfo)
 // 	}
 // }
 
-
 // func TestInsertBiaya(t *testing.T) {
 // 	dbname := "qobel"
 // 	biaya := Biaya{
@@ -55,8 +52,19 @@ var MongoConn = atdb.MongoConnect(MongoInfo)
 // 	}
 // }
 
-func TestGetBiaya(t *testing.T) {
-	tahun := "7.700.000.00"
-	hasil := GetBiaya(tahun, MongoConn, "biaya")
-	fmt.Println(hasil)
+func TestGetJalurPenerimaan(t *testing.T) {
+	stats := "rapot"
+	data := GetDataJalurPenerimaan(stats)
+	fmt.Println(data)
+}
+func TestGetDataInformasi(t *testing.T) {
+	stats := "Proses Pendaftaran"
+	data := GetDataInformasi(stats)
+	fmt.Println(data)
+}
+
+func TestGetDataBiaya(t *testing.T) {
+	stats := "7.700.000"
+	data := GetDataBiaya(stats)
+	fmt.Println(data)
 }

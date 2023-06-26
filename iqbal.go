@@ -61,3 +61,46 @@ func GetBiaya(Biayasemester string, db *mongo.Database, col string) (data Biaya 
 	}
 	return data
 }
+
+
+func GetDataJalurPenerimaan(stats string) (data []JalurPenerimaan) {
+	user := MongoConnect("qobel").Collection("JalurPenerimaan")
+	filter := bson.M{"nis": stats}
+	cursor, err := user.Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Println("GetDataJalurPenerimaan :", err)
+	}
+	err = cursor.All(context.TODO(), &data)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return
+}
+
+func GetDataInformasi(stats string) (data []Informasi) {
+	user := MongoConnect("qobel").Collection("Informasi")
+	filter := bson.M{"status": stats}
+	cursor, err := user.Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Println("GetDataInformasi :", err)
+	}
+	err = cursor.All(context.TODO(), &data)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return
+}
+
+func GetDataBiaya(stats string) (data []Biaya) {
+	user := MongoConnect("qobel").Collection("Biaya")
+	filter := bson.M{"status": stats}
+	cursor, err := user.Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Println("GetDataBiaya :", err)
+	}
+	err = cursor.All(context.TODO(), &data)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return
+}
