@@ -1,4 +1,4 @@
-package iqbal
+package thisbackend
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -21,3 +21,12 @@ type Biaya struct {
 	ID       primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
 	Biayasemester string             `bson:"biayasemester" json:"biayasemester"`
 }
+
+// type About struct {
+// 	Pertanyaan string `bson:"pertanyaan" json:"pertanyaan"`
+// 	Jawaban    string `bson:"jawaban" json:"jawaban"`
+// }
+// type Contactus struct {
+// 	Phone_number string `bson:"phone_number" json:"phone_number"`
+// 	Email        string `bson:"email" json:"email"`
+// }

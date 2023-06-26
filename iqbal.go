@@ -1,4 +1,4 @@
-package iqbal
+package thisbackend
 
 import (
 	"context"
@@ -27,7 +27,6 @@ func InsertOneDoc(db string, collection string, doc interface{}) (insertedID int
 	}
 	return insertResult.InsertedID
 }
-
 func InsertJalurPenerimaan(db string, jalurpenerimaan JalurPenerimaan) (insertedID interface{}) {
 	insertResult, err := MongoConnect(db).Collection("jalurpenerimaan").InsertOne(context.TODO(), jalurpenerimaan)
 	if err != nil {
@@ -35,7 +34,6 @@ func InsertJalurPenerimaan(db string, jalurpenerimaan JalurPenerimaan) (inserted
 	}
 	return insertResult.InsertedID
 }
-
 func InsertInformasi(db string, informasi Informasi) (insertedID interface{}) {
 	insertResult, err := MongoConnect(db).Collection("informasi").InsertOne(context.TODO(), informasi)
 	if err != nil {
@@ -43,32 +41,33 @@ func InsertInformasi(db string, informasi Informasi) (insertedID interface{}) {
 	}
 	return insertResult.InsertedID
 }
-
 func InsertBiaya(db string, biaya Biaya) (insertedID interface{}) {
 	insertResult, err := MongoConnect(db).Collection("biaya").InsertOne(context.TODO(), biaya)
 	if err != nil {
-		fmt.Printf("InsertBiaya: %v\n", err)
+		fmt.Printf("InsertDosen: %v\n", err)
 	}
 	return insertResult.InsertedID
 }
-
-func GetBiaya(Biayasemester string, db *mongo.Database, col string) (data Biaya ) {
-	user := db.Collection(col)
-	filter := bson.M{"biayasemester": Biayasemester}
-	err := user.FindOne(context.TODO(), filter).Decode(&data)
-	if err != nil {
-	fmt.Printf(err.Error())
-	}
-	return data
-}
-
-
+// func InsertAbout(db string, about About) (insertedID interface{}) {
+// 	insertResult, err := MongoConnect(db).Collection("about").InsertOne(context.TODO(), about)
+// 	if err != nil {
+// 		fmt.Printf("InsertAbout: %v\n", err)
+// 	}
+// 	return insertResult.InsertedID
+// }
+// func InsertContactus(db string, contacus Contactus) (insertedID interface{}) {
+// 	insertResult, err := MongoConnect(db).Collection("contactus").InsertOne(context.TODO(), contacus)
+// 	if err != nil {
+// 		fmt.Printf("InsertContactus: %v\n", err)
+// 	}
+// 	return insertResult.InsertedID
+// }
 func GetDataJalurPenerimaan(stats string) (data []JalurPenerimaan) {
-	user := MongoConnect("qobel").Collection("JalurPenerimaan")
-	filter := bson.M{"nis": stats}
+	user := MongoConnect("qobel").Collection("jalurpenerimaan")
+	filter := bson.M{"jalurtes": stats}
 	cursor, err := user.Find(context.TODO(), filter)
 	if err != nil {
-		fmt.Println("GetDataJalurPenerimaan :", err)
+		fmt.Println("GetJalurPenerimaan :", err)
 	}
 	err = cursor.All(context.TODO(), &data)
 	if err != nil {
@@ -76,10 +75,9 @@ func GetDataJalurPenerimaan(stats string) (data []JalurPenerimaan) {
 	}
 	return
 }
-
 func GetDataInformasi(stats string) (data []Informasi) {
-	user := MongoConnect("qobel").Collection("Informasi")
-	filter := bson.M{"status": stats}
+	user := MongoConnect("qobel").Collection("informasi")
+	filter := bson.M{"catatan": stats}
 	cursor, err := user.Find(context.TODO(), filter)
 	if err != nil {
 		fmt.Println("GetDataInformasi :", err)
@@ -90,13 +88,12 @@ func GetDataInformasi(stats string) (data []Informasi) {
 	}
 	return
 }
-
 func GetDataBiaya(stats string) (data []Biaya) {
-	user := MongoConnect("qobel").Collection("Biaya")
-	filter := bson.M{"status": stats}
+	user := MongoConnect("qobel").Collection("biaya")
+	filter := bson.M{"biayasemester": stats}
 	cursor, err := user.Find(context.TODO(), filter)
 	if err != nil {
-		fmt.Println("GetDataBiaya :", err)
+		fmt.Println("GetDatabiaya :", err)
 	}
 	err = cursor.All(context.TODO(), &data)
 	if err != nil {
@@ -104,3 +101,4 @@ func GetDataBiaya(stats string) (data []Biaya) {
 	}
 	return
 }
+
